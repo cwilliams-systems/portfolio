@@ -34,17 +34,17 @@
     }
 
     body {
-  background-color: var(--bg-color);
-  color: var(--text-main);
-  font-family: var(--font-sans);
-  line-height: 1.6;
-  background-image: 
-    linear-gradient(to bottom, rgba(6, 10, 15, 0.75), rgba(6, 10, 15, 0.9)),
-    url('bg.jpg');
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center;
-}
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      background-image: 
+        linear-gradient(to bottom, rgba(6, 10, 15, 0.75), rgba(6, 10, 15, 0.9)),
+        url('bg.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+    }
 
     a {
       color: inherit;
@@ -260,10 +260,12 @@
       color: var(--green-primary);
     }
 
-    /* GPU Render Placeholder / Graphic */
-<div class="hero-graphic">
-  <img src="gpu.png" alt="GPU Exploded Diagram" class="gpu-image">
-</div>
+    /* GPU Render Container */
+    .hero-graphic {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
     .gpu-image {
       width: 100%;
@@ -527,7 +529,7 @@
 
       <!-- Hero GPU Graphics Side -->
       <div class="hero-graphic">
-        <img src="https://cdna.artstation.com/p/assets/images/images/031/403/172/large/pedro-pascual-rtx3090-exploded-01.jpg?1603539744" alt="GPU Exploded Diagram" class="gpu-image" onError="this.onerror=null;this.src='https://raw.githubusercontent.com/NVIDIA/cuda-samples/master/bin/win64/Release/screenshot.png';">
+        <img src="gpu.png" alt="GPU Exploded Diagram" class="gpu-image">
       </div>
     </section>
 
