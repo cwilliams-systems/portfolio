@@ -4,75 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Christopher Williams - GPU Systems & ML Infrastructure</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Pixel-matched Monospace Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #030708;
-            --text-main: #e2e8f0;
-            --text-muted: #8395a7;
-            --green-accent: #22c55e;
-            --green-glow: rgba(34, 197, 94, 0.2);
-            --card-bg: rgba(6, 15, 18, 0.7);
-            --card-border: rgba(34, 197, 94, 0.15);
-            --tag-bg: #0d1f23;
-            --font-mono: 'JetBrains Mono', monospace;
+            --bg-color: #04080b;
+            --accent-green: #30e36b;
+            --accent-green-dim: rgba(48, 227, 107, 0.12);
+            --accent-green-border: rgba(48, 227, 107, 0.25);
+            --text-main: #f8fafc;
+            --text-sub: #8395a7;
+            --card-bg: rgba(6, 12, 16, 0.88);
+            --card-border: rgba(48, 227, 107, 0.18);
+            --tag-bg: rgba(255, 255, 255, 0.04);
+            --tag-text: #94a3b8;
+            --font: 'Fira Code', monospace;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: var(--font-mono);
+            font-family: var(--font);
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-color);
             color: var(--text-main);
-            /* Background circuit board simulation using SVG layer */
-            background-image: 
-                radial-gradient(circle at 50% 20%, rgba(34, 197, 94, 0.05) 0%, transparent 60%),
-                url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20h20v20H0V20zm40 0h20v20H40V20zM20 40h20v20H20V40zm40 0h20v20H60V40z' fill='%2322c55e' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E");
-            background-attachment: fixed;
-            padding: 2rem 4rem;
-            max-width: 1400px;
+            /* Using your EXACT background circuit board image */
+            background: 
+                linear-gradient(rgba(4, 8, 11, 0.4), rgba(4, 8, 11, 0.85)),
+                url('bg-landscape.jpg') center top / cover no-repeat fixed;
+            min-height: 100vh;
+            padding: 2.5rem 4rem;
+            max-width: 1350px;
             margin: 0 auto;
             position: relative;
         }
 
-        /* --- NAVIGATION --- */
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- NAV --- */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 3rem;
+            padding-bottom: 3.5rem;
         }
 
-        .header-brand {
+        .brand {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 1rem;
         }
 
-        .logo-box {
-            border: 1.5px solid var(--green-accent);
-            color: var(--green-accent);
-            font-weight: 600;
-            padding: 0.25rem 0.4rem;
+        .logo {
+            border: 1.5px solid var(--accent-green);
+            color: var(--accent-green);
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 5px 8px;
             border-radius: 4px;
-            font-size: 0.9rem;
         }
 
-        .header-info h1 {
+        .title-group h1 {
             font-size: 0.95rem;
             font-weight: 500;
-            letter-spacing: 0.5px;
+            color: var(--text-main);
+            letter-spacing: -0.2px;
         }
 
-        .header-info p {
-            font-size: 0.75rem;
-            color: var(--green-accent);
+        .title-group p {
+            font-size: 0.73rem;
+            color: var(--accent-green);
             margin-top: 2px;
         }
 
@@ -83,18 +94,14 @@
         }
 
         nav a {
-            color: var(--text-muted);
-            text-decoration: none;
             font-size: 0.75rem;
-            letter-spacing: 1px;
+            color: var(--text-sub);
+            letter-spacing: 0.5px;
             transition: color 0.2s;
         }
 
-        nav a:hover, nav a.active {
-            color: var(--green-accent);
-        }
-
         nav a.active {
+            color: var(--accent-green);
             position: relative;
         }
 
@@ -105,103 +112,100 @@
             left: 0;
             width: 100%;
             height: 2px;
-            background-color: var(--green-accent);
+            background-color: var(--accent-green);
         }
 
-        .github-icon {
-            font-size: 1.2rem;
-            color: var(--text-main);
+        .github-svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--text-main);
         }
 
-        /* --- HERO SECTION --- */
-        .hero-section {
+        /* --- HERO --- */
+        .hero {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
             position: relative;
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
         }
 
-        .hero-left {
-            z-index: 2;
-        }
-
-        .subtitle {
-            color: var(--green-accent);
+        .tagline {
+            color: var(--accent-green);
             font-size: 0.75rem;
             letter-spacing: 1px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
         }
 
-        .main-heading {
-            font-size: 2.75rem;
-            font-weight: 500;
+        .hero-title {
+            font-size: 2.65rem;
+            font-weight: 400;
             line-height: 1.2;
-            margin-bottom: 1.5rem;
             letter-spacing: -0.5px;
+            margin-bottom: 1.5rem;
         }
 
-        .main-heading span {
-            color: var(--green-accent);
+        .hero-title .green {
+            color: var(--accent-green);
         }
 
-        .hero-description {
-            color: var(--text-muted);
-            font-size: 0.85rem;
+        .hero-desc {
+            color: var(--text-sub);
+            font-size: 0.82rem;
             line-height: 1.6;
-            max-width: 440px;
+            max-width: 430px;
             margin-bottom: 2rem;
         }
 
-        /* --- PERFORMANCE CARD --- */
-        .perf-card {
-            border: 1px solid var(--card-border);
-            background: rgba(4, 20, 20, 0.4);
-            border-radius: 8px;
-            padding: 1.25rem;
-            max-width: 360px;
+        /* --- BENCHMARK CARD --- */
+        .bench-card {
+            background-color: var(--accent-green-dim);
+            border: 1px solid var(--accent-green-border);
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            width: 330px;
             margin-bottom: 2rem;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(4px);
         }
 
-        .perf-title {
-            color: var(--green-accent);
+        .bench-label {
+            color: var(--accent-green);
             font-size: 0.65rem;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
+            font-weight: 500;
             margin-bottom: 0.5rem;
         }
 
-        .perf-stats {
+        .bench-value-row {
             display: flex;
             align-items: baseline;
             gap: 0.5rem;
         }
 
-        .perf-number {
+        .bench-num {
             font-size: 2.5rem;
             font-weight: 500;
-            color: var(--green-accent);
+            color: var(--accent-green);
             line-height: 1;
         }
 
-        .perf-unit {
+        .bench-unit {
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--text-sub);
         }
 
-        .perf-chart {
-            margin-top: 1rem;
-            height: 40px;
-            width: 100%;
+        .bench-sparkline {
+            height: 35px;
+            margin-top: 0.25rem;
         }
 
-        .perf-chart svg {
+        .bench-sparkline svg {
             width: 100%;
             height: 100%;
         }
 
         /* --- HERO BUTTONS --- */
-        .hero-cta {
+        .btn-group {
             display: flex;
             gap: 1rem;
         }
@@ -210,82 +214,92 @@
             padding: 0.75rem 1.25rem;
             border-radius: 4px;
             font-size: 0.75rem;
-            font-weight: 600;
+            font-weight: 500;
             letter-spacing: 0.5px;
             cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
             transition: all 0.2s;
         }
 
-        .btn-primary {
-            background-color: var(--green-accent);
-            color: #000;
-            border: 1px solid var(--green-accent);
+        .btn-green {
+            background-color: var(--accent-green);
+            color: #04080b;
+            border: 1px solid var(--accent-green);
         }
 
-        .btn-primary:hover {
-            box-shadow: 0 0 15px var(--green-glow);
+        .btn-green:hover {
+            box-shadow: 0 0 20px rgba(48, 227, 107, 0.4);
         }
 
-        .btn-secondary {
-            background-color: transparent;
+        .btn-outline {
+            background: transparent;
             color: var(--text-main);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .btn-secondary:hover {
+        .btn-outline:hover {
             border-color: var(--text-main);
         }
 
-        /* --- HERO RIGHT (3D GRAPHICS) --- */
-        .hero-right {
+        /* HERO GRAPHIC - Matched to your GPU image */
+        .hero-graphic {
             position: relative;
             display: flex;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
         }
 
-        .hardware-img {
-            width: 120%;
+        .gpu-img {
+            width: 125%;
             max-width: 650px;
-            position: absolute;
-            top: -60px;
-            right: -40px;
-            filter: drop-shadow(0 0 30px rgba(0,255,100,0.1));
+            margin-right: -40px;
+            /* Blending mode trick to remove black background from jpeg */
+            mix-blend-mode: screen; 
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.9));
             pointer-events: none;
         }
 
-        /* --- SCROLL INDICATOR --- */
-        .scroll-indicator {
+        .scroll-block {
             text-align: center;
-            margin: 4rem 0 3rem;
-            color: var(--green-accent);
+            margin: 3.5rem 0 2.5rem;
+            color: var(--accent-green);
             font-size: 0.65rem;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
         }
 
-        .scroll-indicator i {
+        .scroll-block span {
             display: block;
             margin-top: 0.25rem;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
 
         /* --- PROJECTS SECTION --- */
-        .projects-section {
-            margin-top: 2rem;
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            color: var(--accent-green);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .section-line {
+            width: 100%;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.25rem;
-            margin-top: 1.5rem;
         }
 
-        .project-card {
+        .card {
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 6px;
@@ -293,123 +307,115 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 230px;
-            transition: border-color 0.2s;
+            min-height: 235px;
+            backdrop-filter: blur(5px);
+            transition: border-color 0.2s, transform 0.2s;
         }
 
-        .project-card:hover {
-            border-color: rgba(34, 197, 94, 0.4);
-        }
-
-        .card-top {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
+        .card:hover {
+            border-color: rgba(48, 227, 107, 0.4);
+            transform: translateY(-2px);
         }
 
         .card-icon {
-            color: var(--green-accent);
-            font-size: 1.5rem;
-            margin-top: 0.2rem;
+            width: 30px;
+            height: 30px;
+            stroke: var(--accent-green);
+            fill: none;
+            stroke-width: 1.75;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            margin-bottom: 1rem;
         }
 
-        .card-title {
-            font-size: 1rem;
+        .card-h3 {
+            font-size: 0.95rem;
             font-weight: 500;
-            line-height: 1.3;
+            line-height: 1.35;
+            margin-bottom: 0.75rem;
         }
 
-        .card-desc {
-            color: var(--text-muted);
-            font-size: 0.72rem;
+        .card-body {
+            font-size: 0.73rem;
+            color: var(--text-sub);
             line-height: 1.5;
-            margin-top: 0.75rem;
+            margin-bottom: 1.25rem;
         }
 
-        .tags-container {
+        .tags {
             display: flex;
-            gap: 0.4rem;
+            gap: 0.5rem;
             flex-wrap: wrap;
-            margin-top: 1rem;
+            margin-bottom: 1.25rem;
         }
 
         .tag {
             background-color: var(--tag-bg);
-            color: var(--text-muted);
+            color: var(--tag-text);
             font-size: 0.65rem;
-            padding: 0.2rem 0.5rem;
+            padding: 3px 8px;
             border-radius: 3px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
 
         .card-link {
-            color: var(--green-accent);
-            text-decoration: none;
+            color: var(--accent-green);
             font-size: 0.7rem;
-            letter-spacing: 0.5px;
+            font-weight: 500;
             display: inline-flex;
             align-items: center;
-            gap: 0.3rem;
-            margin-top: 1rem;
+            gap: 0.4rem;
+            letter-spacing: 0.5px;
         }
 
         /* --- FOOTER --- */
         footer {
             margin-top: 5rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-end;
         }
 
         .footer-socials {
             display: flex;
             gap: 2rem;
+            align-items: center;
         }
 
-        .social-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.75rem;
+        .social-item {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            color: var(--text-sub);
+            font-size: 0.75rem;
+            transition: color 0.2s;
         }
 
-        .social-link:hover {
+        .social-item:hover {
             color: var(--text-main);
+        }
+
+        .social-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
         }
 
         .footer-quote {
             text-align: right;
         }
 
-        .quote-text {
-            color: var(--green-accent);
+        .quote-main {
+            color: var(--accent-green);
             font-size: 0.8rem;
         }
 
-        .quote-author {
-            color: var(--text-muted);
+        .quote-sub {
+            color: var(--text-sub);
             font-size: 0.7rem;
-            margin-top: 0.2rem;
-        }
-
-        /* Responsive Layout Adjustments */
-        @media (max-width: 1024px) {
-            .projects-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .hero-section {
-                grid-template-columns: 1fr;
-            }
-            .hardware-img {
-                position: relative;
-                top: 0;
-                right: 0;
-                width: 100%;
-            }
+            margin-top: 0.25rem;
         }
     </style>
 </head>
@@ -417,182 +423,157 @@
 
     <!-- Header Navigation -->
     <header>
-        <div class="header-brand">
-            <div class="logo-box">CW</div>
-            <div class="header-info">
+        <div class="brand">
+            <div class="logo">CW</div>
+            <div class="title-group">
                 <h1>Christopher Williams</h1>
                 <p>GPU Systems & ML Infrastructure</p>
             </div>
         </div>
         <nav>
-            <a href="#" class="active">PROJECTS</a>
-            <a href="#">BENCHMARKS</a>
-            <a href="#">CONTACT</a>
-            <a href="#" class="github-icon"><i class="fa-brands fa-github"></i></a>
+            <a href="#projects" class="active">PROJECTS</a>
+            <a href="#benchmarks">BENCHMARKS</a>
+            <a href="#contact">CONTACT</a>
+            <a href="https://github.com" target="_blank" aria-label="GitHub">
+                <svg class="github-svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            </a>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="hero-left">
-            <p class="subtitle">// ENGINEERING THE FUTURE</p>
-            <h1 class="main-heading">High Performance<br><span>GPU Kernels.</span><br>Built from the Metal Up.</h1>
-            <p class="hero-description">
+    <main class="hero">
+        <div class="hero-content">
+            <p class="tagline">// ENGINEERING THE FUTURE</p>
+            <h2 class="hero-title">High Performance<br><span class="green">GPU Kernels.</span><br>Built from the Metal Up.</h2>
+            <p class="hero-desc">
                 I build and optimize CUDA kernels, profile at scale, and engineer ML infrastructure that delivers measurable performance.
             </p>
 
-            <!-- Performance Card -->
-            <div class="perf-card">
-                <p class="perf-title">BEST GEMM PERFORMANCE</p>
-                <div class="perf-stats">
-                    <span class="perf-number">932.9</span>
-                    <span class="perf-unit">GFLOPS on Tesla T4</span>
+            <!-- Benchmark Card -->
+            <div class="bench-card">
+                <p class="bench-label">BEST GEMM PERFORMANCE</p>
+                <div class="bench-value-row">
+                    <span class="bench-num">932.9</span>
+                    <span class="bench-unit">GFLOPS on Tesla T4</span>
                 </div>
-                <div class="perf-chart">
-                    <svg viewBox="0 0 200 40">
-                        <path d="M 0,35 Q 20,30 40,28 T 80,22 T 120,25 T 160,12 T 200,5" fill="none" stroke="#22c55e" stroke-width="2" />
-                        <circle cx="200" cy="5" r="3" fill="#22c55e" />
+                <div class="bench-sparkline">
+                    <svg viewBox="0 0 200 40" preserveAspectRatio="none">
+                        <path d="M 0,32 Q 30,28 60,25 T 120,20 T 160,10 T 200,4" fill="none" stroke="#30e36b" stroke-width="2" />
+                        <circle cx="200" cy="4" r="3" fill="#30e36b" />
                     </svg>
                 </div>
             </div>
 
-            <!-- CTA Buttons -->
-            <div class="hero-cta">
-                <a href="#projects" class="btn btn-primary">&lt;/&gt; VIEW PROJECTS</a>
-                <a href="#" class="btn btn-secondary">VIEW BENCHMARKS</a>
+            <div class="btn-group">
+                <a href="#projects" class="btn btn-green">&lt;/&gt; VIEW PROJECTS</a>
+                <a href="#benchmarks" class="btn btn-outline">VIEW BENCHMARKS</a>
             </div>
         </div>
 
-        <div class="hero-right">
-            <!-- Hardware Graphic extracted directly from source -->
-            <img class="hardware-img" src="https://i.imgur.com/8N4N3bB.png" alt="GPU Hardware Breakdown">
+        <div class="hero-graphic">
+            <!-- Utilizing exact user provided image asset -->
+            <img class="gpu-img" src="gpu-transparent.jpg" alt="Exploded GPU hardware">
         </div>
-    </section>
+    </main>
 
-    <div class="scroll-indicator">
+    <div class="scroll-block">
         SCROLL
-        <i class="fa-solid fa-chevron-down"></i>
+        <span>∨</span>
     </div>
 
     <!-- Featured Projects Grid -->
-    <section class="projects-section" id="projects">
-        <p class="subtitle">// FEATURED PROJECTS</p>
+    <section id="projects">
+        <div class="section-header">
+            <p class="section-title">// FEATURED PROJECTS</p>
+            <div class="section-line"></div>
+        </div>
 
         <div class="projects-grid">
             <!-- Card 1 -->
-            <div class="project-card">
+            <div class="card">
                 <div>
-                    <div class="card-top">
-                        <i class="fa-solid fa-border-all card-icon"></i>
-                        <h2 class="card-title">CUDA GEMM<br>Kernel</h2>
-                    </div>
-                    <p class="card-desc">High performance matrix multiplication with shared memory tiling and memory coalescing.</p>
+                    <svg class="card-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    <h3 class="card-h3">CUDA GEMM<br>Kernel</h3>
+                    <p class="card-body">High performance matrix multiplication with shared memory tiling and memory coalescing.</p>
                 </div>
                 <div>
-                    <div class="tags-container">
-                        <span class="tag">CUDA</span>
-                        <span class="tag">C++</span>
-                        <span class="tag">Tiling</span>
-                        <span class="tag">Shared Memory</span>
+                    <div class="tags">
+                        <span class="tag">CUDA</span><span class="tag">C++</span><span class="tag">Tiling</span><span class="tag">Shared Memory</span>
                     </div>
                     <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
                 </div>
             </div>
 
             <!-- Card 2 -->
-            <div class="project-card">
+            <div class="card">
                 <div>
-                    <div class="card-top">
-                        <i class="fa-solid fa-integral card-icon"></i>
-                        <h2 class="card-title">CUDA Numerical<br>Integration</h2>
-                    </div>
-                    <p class="card-desc">Trapezoidal rule and Simpson's rule implemented with parallel reduction on the GPU.</p>
+                    <svg class="card-icon" viewBox="0 0 24 24"><path d="M12 4c2 0 3 2 3 4v8c0 2-1 4-3 4s-3-2-3-4V8c0-2 1-4 3-4z"/></svg>
+                    <h3 class="card-h3">CUDA Numerical<br>Integration</h3>
+                    <p class="card-body">Trapezoidal rule and Simpson's rule implemented with parallel reduction on the GPU.</p>
                 </div>
                 <div>
-                    <div class="tags-container">
-                        <span class="tag">CUDA</span>
-                        <span class="tag">C++</span>
-                        <span class="tag">Reduction</span>
-                        <span class="tag">Math</span>
+                    <div class="tags">
+                        <span class="tag">CUDA</span><span class="tag">C++</span><span class="tag">Reduction</span><span class="tag">Math</span>
                     </div>
                     <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
                 </div>
             </div>
 
             <!-- Card 3 -->
-            <div class="project-card">
+            <div class="card">
                 <div>
-                    <div class="card-top">
-                        <i class="fa-solid fa-cubes card-icon"></i>
-                        <h2 class="card-title">GPU Kernel<br>Library (WIP)</h2>
-                    </div>
-                    <p class="card-desc">Building a library of high performance kernels for ML workloads.</p>
+                    <svg class="card-icon" viewBox="0 0 24 24"><path d="M12 2l9 4.9v9.8L12 22l-9-5.3V6.9L12 2z"/><path d="M12 22V12"/><path d="M21 6.9L12 12 3 6.9"/></svg>
+                    <h3 class="card-h3">GPU Kernel<br>Library (WIP)</h3>
+                    <p class="card-body">Building a library of high performance kernels for ML workloads.</p>
                 </div>
                 <div>
-                    <div class="tags-container">
-                        <span class="tag">CUDA</span>
-                        <span class="tag">Attention</span>
-                        <span class="tag">LayerNorm</span>
-                        <span class="tag">Softmax</span>
+                    <div class="tags">
+                        <span class="tag">CUDA</span><span class="tag">Attention</span><span class="tag">LayerNorm</span><span class="tag">Softmax</span>
                     </div>
                     <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
                 </div>
             </div>
 
             <!-- Card 4 -->
-            <div class="project-card">
+            <div class="card">
                 <div>
-                    <div class="card-top">
-                        <i class="fa-solid fa-diagram-project card-icon"></i>
-                        <h2 class="card-title">Multi-GPU<br>GEMM (WIP)</h2>
-                    </div>
-                    <p class="card-desc">Distributed matrix multiplication across multiple GPUs and nodes.</p>
+                    <svg class="card-icon" viewBox="0 0 24 24"><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><circle cx="12" cy="5" r="2"/><path d="M6.5 17.5l4-10.5M17.5 17.5l-4-10.5"/></svg>
+                    <h3 class="card-h3">Multi-GPU<br>GEMM (WIP)</h3>
+                    <p class="card-body">Distributed matrix multiplication across multiple GPUs and nodes.</p>
                 </div>
                 <div>
-                    <div class="tags-container">
-                        <span class="tag">CUDA</span>
-                        <span class="tag">NCCL</span>
-                        <span class="tag">MPI</span>
-                        <span class="tag">Scaling</span>
+                    <div class="tags">
+                        <span class="tag">CUDA</span><span class="tag">NCCL</span><span class="tag">MPI</span><span class="tag">Scaling</span>
                     </div>
                     <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
                 </div>
             </div>
 
             <!-- Card 5 -->
-            <div class="project-card">
+            <div class="card">
                 <div>
-                    <div class="card-top">
-                        <i class="fa-solid fa-chart-simple card-icon"></i>
-                        <h2 class="card-title">Kernel<br>Benchmark Suite</h2>
-                    </div>
-                    <p class="card-desc">Automated benchmarking framework with Nsight profiling and analysis.</p>
+                    <svg class="card-icon" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                    <h3 class="card-h3">Kernel<br>Benchmark Suite</h3>
+                    <p class="card-body">Automated benchmarking framework with Nsight profiling and analysis.</p>
                 </div>
                 <div>
-                    <div class="tags-container">
-                        <span class="tag">Python</span>
-                        <span class="tag">Nsight</span>
-                        <span class="tag">Pandas</span>
-                        <span class="tag">Matplotlib</span>
+                    <div class="tags">
+                        <span class="tag">Python</span><span class="tag">Nsight</span><span class="tag">Pandas</span><span class="tag">Matplotlib</span>
                     </div>
                     <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
                 </div>
             </div>
 
             <!-- Card 6 -->
-            <div class="project-card">
+            <div class="card">
                 <div>
-                    <div class="card-top">
-                        <i class="fa-regular fa-file-lines card-icon"></i>
-                        <h2 class="card-title">Architecture<br>Notes</h2>
-                    </div>
-                    <p class="card-desc">Deep dives into GPU architecture, memory hierarchy, and performance optimization.</p>
+                    <svg class="card-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    <h3 class="card-h3">Architecture<br>Notes</h3>
+                    <p class="card-body">Deep dives into GPU architecture, memory hierarchy, and performance optimization.</p>
                 </div>
                 <div>
-                    <div class="tags-container">
-                        <span class="tag">Notes</span>
-                        <span class="tag">Architecture</span>
-                        <span class="tag">Optimization</span>
+                    <div class="tags">
+                        <span class="tag">Notes</span><span class="tag">Architecture</span><span class="tag">Optimization</span>
                     </div>
                     <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
                 </div>
@@ -600,25 +581,34 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer Section -->
     <footer>
-        <div class="header-brand">
-            <div class="logo-box">CW</div>
-            <div class="header-info">
+        <div class="brand">
+            <div class="logo">CW</div>
+            <div class="title-group">
                 <h1>Christopher Williams</h1>
                 <p>GPU Systems & ML Infrastructure</p>
             </div>
         </div>
 
         <div class="footer-socials">
-            <a href="#" class="social-link"><i class="fa-brands fa-github"></i> GitHub</a>
-            <a href="#" class="social-link"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-            <a href="#" class="social-link"><i class="fa-solid fa-envelope"></i> Email</a>
+            <a href="https://github.com" target="_blank" class="social-item">
+                <svg class="social-icon" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                GitHub
+            </a>
+            <a href="https://linkedin.com" target="_blank" class="social-item">
+                <svg class="social-icon" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                LinkedIn
+            </a>
+            <a href="mailto:contact@example.com" class="social-item">
+                <svg class="social-icon" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.036l-9.518 7.713-9.518-7.713zm5.694 5.188l1.824 1.48 1.824-1.48 4.623 5.712h-12.894l4.623-5.712zm8.201.741l4.623-3.746v9.458l-4.623-5.712z"/></svg>
+                Email
+            </a>
         </div>
 
         <div class="footer-quote">
-            <p class="quote-text">"Performance is a feature."</p>
-            <p class="quote-author">— Unknown</p>
+            <p class="quote-main">"Performance is a feature."</p>
+            <p class="quote-sub">– Unknown</p>
         </div>
     </footer>
 
