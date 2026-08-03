@@ -1,236 +1,710 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hero Section - GPU Showcase</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Christopher Williams - GPU Systems & ML Infrastructure</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
-    /* ==========================================================================
-       1. Global Resets & Base Styles
-       ========================================================================== */
+    :root {
+      --bg-color: #060a0f;
+      --card-bg: #0b131b;
+      --card-border: #152635;
+      --green-primary: #38ef7d;
+      --green-dim: #1db954;
+      --text-main: #e2e8f0;
+      --text-muted: #8a99ad;
+      --tag-bg: #111d2a;
+      --font-mono: 'Fira Code', monospace;
+      --font-sans: 'Inter', sans-serif;
+    }
+
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: #050508;
-      color: #ffffff;
-      min-height: 100vh;
-      overflow-x: hidden;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      background-image: 
+        linear-gradient(to bottom, rgba(6, 10, 15, 0.4), rgba(6, 10, 15, 0.75)),
+        url('bg-landscape-v2.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
     }
 
-    /* ==========================================================================
-       2. Hero Section Container & Background
-       ========================================================================== */
-    .hero-container {
-      width: 100%;
-      min-height: 100vh;
-      position: relative;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* --- Navigation --- */
+    nav {
+      padding: 2.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .avatar {
+      background-color: #0d1e18;
+      border: 1px solid rgba(56, 239, 125, 0.3);
+      color: var(--green-primary);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      width: 42px;
+      height: 42px;
       display: flex;
       align-items: center;
       justify-content: center;
-      /* Background Circuit Image */
-      background-image: url('bg-landscape.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      overflow: hidden;
+      border-radius: 6px;
     }
 
-    /* Optional dark overlay to ensure text contrast over circuit background */
-    .hero-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(5, 5, 8, 0.45);
-      z-index: 1;
-    }
-
-    /* ==========================================================================
-       3. Hero Layout (Grid)
-       ========================================================================== */
-    .hero {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 2rem 2rem;
-      display: grid;
-      grid-template-columns: 1fr 1.25fr; /* Gives extra space to the GPU side */
-      align-items: center;
-      gap: 2rem;
-    }
-
-    /* ==========================================================================
-       4. Left Column: Text & Content
-       ========================================================================== */
-    .hero-content {
-      max-width: 580px;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      padding: 0.35rem 0.85rem;
-      background: rgba(0, 229, 255, 0.1);
-      border: 1px solid rgba(0, 229, 255, 0.3);
-      border-radius: 20px;
-      color: #00e5ff;
-      font-size: 0.85rem;
+    .brand-text h1 {
+      font-size: 1.1rem;
+      font-family: var(--font-mono);
       font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .brand-text p {
+      font-size: 0.8rem;
+      color: var(--green-primary);
+      font-family: var(--font-mono);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
       letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--green-primary);
+    }
+
+    .nav-links a.active {
+      border-bottom: 2px solid var(--green-primary);
+      padding-bottom: 4px;
+    }
+
+    .github-icon {
+      font-size: 1.2rem;
+      color: var(--text-main);
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      padding: 3rem 0 5rem 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      position: relative;
+      overflow: visible;
+    }
+
+    .hero-subtitle {
+      color: var(--green-primary);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.5px;
     }
 
     .hero-title {
-      font-size: 3.5rem;
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 1.25rem;
-      background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 3.2rem;
+      font-family: var(--font-mono);
+      line-height: 1.15;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title span {
+      color: var(--green-primary);
     }
 
     .hero-description {
-      font-size: 1.125rem;
-      line-height: 1.6;
-      color: #94a3b8;
-      margin-bottom: 2rem;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 480px;
+      margin-bottom: 2.5rem;
     }
 
-    .hero-actions {
+    /* Metric Box */
+    .metric-card {
+      background: rgba(11, 19, 27, 0.75);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      max-width: 360px;
+      margin-bottom: 2.5rem;
+      position: relative;
+      backdrop-filter: blur(8px);
+    }
+
+    .metric-title {
+      color: var(--green-primary);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .metric-value-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .metric-value {
+      font-family: var(--font-mono);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--green-primary);
+      line-height: 1;
+    }
+
+    .metric-unit {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      margin-top: 0.4rem;
+    }
+
+    /* Mini Sparkline Chart Mockup */
+    .sparkline {
+      width: 100px;
+      height: 35px;
+    }
+
+    .sparkline path {
+      fill: none;
+      stroke: var(--green-primary);
+      stroke-width: 2;
+    }
+
+    /* Buttons */
+    .hero-buttons {
       display: flex;
       gap: 1rem;
+    }
+
+    .btn {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.85rem 1.75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
       align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
     }
 
     .btn-primary {
-      padding: 0.9rem 2rem;
-      background: linear-gradient(135deg, #3b82f6, #00e5ff);
-      color: #ffffff;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 4px 20px rgba(0, 229, 255, 0.3);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      background-color: var(--green-primary);
+      color: #000;
+      border: 1px solid var(--green-primary);
     }
 
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(0, 229, 255, 0.5);
+      background-color: #2ed16d;
+      box-shadow: 0 0 15px rgba(56, 239, 125, 0.4);
     }
 
-    .btn-secondary {
-      padding: 0.9rem 2rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #ffffff;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s ease, border-color 0.2s ease;
+    .btn-outline {
+      background-color: transparent;
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
     }
 
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.3);
+    .btn-outline:hover {
+      border-color: var(--green-primary);
+      color: var(--green-primary);
     }
 
-    /* ==========================================================================
-       5. Right Column: GPU Image Fixes
-       ========================================================================== */
+    /* GPU Render Container */
     .hero-graphic {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
+      justify-content: flex-end;
+      align-items: flex-start;
+      align-self: flex-start;
+      width: 100%;
+      overflow: visible;
     }
 
     .gpu-image {
-      /* Scale & Size */
-      width: 140%; 
-      max-width: 850px;
+      width: 132%;
+      max-width: 900px;
       height: auto;
-      transform: scale(1.15) translateX(20px);
-      
-      /* CRITICAL: Drops out the solid black JPG background */
-      mix-blend-mode: screen; 
-
-      /* Enhances contrast and brightness so the hardware details pop out */
-      filter: contrast(1.25) brightness(1.15) saturate(1.1);
-
-      pointer-events: none;
-      user-select: none;
+      margin-right: -30px;
+      margin-top: -45px;
+      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.8));
+      object-fit: contain;
     }
 
-    /* ==========================================================================
-       6. Responsive Breakpoints
-       ========================================================================== */
-    @media (max-width: 1024px) {
+    .scroll-indicator {
+      text-align: center;
+      margin: 2rem 0;
+      color: var(--green-primary);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* --- Projects Section --- */
+    .section-title {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--green-primary);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: var(--card-border);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 5rem;
+    }
+
+    .project-card {
+      background-color: rgba(11, 19, 27, 0.75);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56, 239, 125, 0.4);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-icon {
+      color: var(--green-primary);
+      font-size: 1.8rem;
+      background-color: rgba(56, 239, 125, 0.05);
+      border: 1px solid rgba(56, 239, 125, 0.15);
+      padding: 0.6rem;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-title {
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+
+    .card-description {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tag {
+      background-color: var(--tag-bg);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .card-link {
+      color: var(--green-primary);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: gap 0.2s;
+    }
+
+    .card-link:hover {
+      gap: 0.7rem;
+    }
+
+    /* --- Footer --- */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 3rem 0;
+      margin-top: 2rem;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      transition: color 0.3s;
+    }
+
+    .social-link:hover {
+      color: var(--green-primary);
+    }
+
+    .footer-quote {
+      text-align: right;
+    }
+
+    .quote-text {
+      color: var(--green-primary);
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+    }
+
+    .quote-author {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      margin-top: 0.2rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 900px) {
       .hero {
         grid-template-columns: 1fr;
         text-align: center;
-        padding-top: 4rem;
-        padding-bottom: 4rem;
       }
-
-      .hero-content {
-        margin: 0 auto;
+      .hero-description, .metric-card {
+        margin-left: auto;
+        margin-right: auto;
       }
-
-      .hero-actions {
+      .hero-buttons {
         justify-content: center;
       }
-
       .gpu-image {
         width: 100%;
-        transform: scale(1) translateX(0);
-        margin-top: 2rem;
+        max-width: 100%;
+        margin-right: 0;
+        margin-top: 0;
+      }
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-content {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+      }
+      .footer-quote {
+        text-align: center;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="hero-container">
+  <div class="container">
+    <!-- Navigation Bar -->
+    <nav>
+      <div class="brand">
+        <div class="avatar">CW</div>
+        <div class="brand-text">
+          <h1>Christopher Williams</h1>
+          <p>GPU Systems & ML Infrastructure</p>
+        </div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#projects" class="active">PROJECTS</a></li>
+        <li><a href="#benchmarks">BENCHMARKS</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+        <li><a href="https://github.com" target="_blank" class="github-icon"><i class="fa-brands fa-github"></i></a></li>
+      </ul>
+    </nav>
+
+    <!-- Hero Section -->
     <section class="hero">
-      
-      <!-- Left Column: Content -->
-      <div class="hero-content">
-        <span class="hero-badge">Next-Gen Performance</span>
-        <h1 class="hero-title">Extreme Computing Power</h1>
+      <div class="hero-left">
+        <div class="hero-subtitle">// ENGINEERING THE FUTURE</div>
+        <h1 class="hero-title">High Performance<br><span>GPU Kernels.</span><br>Built from the Metal Up.</h1>
         <p class="hero-description">
-          Engineered for high-throughput AI workloads, real-time rendering, and advanced ray tracing. Experience unmatched speed and architecture precision.
+          I build and optimize CUDA kernels, profile at scale, and engineer ML infrastructure that delivers measurable performance.
         </p>
-        <div class="hero-actions">
-          <a href="#" class="btn-primary">Explore Specs</a>
-          <a href="#" class="btn-secondary">Watch Demo</a>
+        
+        <!-- Metric Box -->
+        <div class="metric-card">
+          <div class="metric-title">BEST GEMM PERFORMANCE</div>
+          <div class="metric-value-container">
+            <div>
+              <div class="metric-value">932.9</div>
+              <div class="metric-unit">GFLOPS on Tesla T4</div>
+            </div>
+            <!-- Sparkline SVG -->
+            <svg class="sparkline" viewBox="0 0 100 35">
+              <path d="M 0,30 L 20,25 L 40,28 L 60,12 L 80,18 L 100,5" />
+              <circle cx="100" cy="5" r="3" fill="#38ef7d" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary">&lt;/&gt; VIEW PROJECTS</a>
+          <a href="#benchmarks" class="btn btn-outline">VIEW BENCHMARKS</a>
         </div>
       </div>
 
-      <!-- Right Column: GPU Graphic -->
+      <!-- Hero GPU Graphics Side -->
       <div class="hero-graphic">
-        <img 
-          src="gpu-transparent.jpg" 
-          alt="GPU Graphics Card" 
-          class="gpu-image"
-        />
+        <img src="gpu-transparent-v2.png" alt="GPU Exploded Diagram" class="gpu-image">
       </div>
-
     </section>
+
+    <div class="scroll-indicator">
+      SCROLL
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    <!-- Featured Projects Section -->
+    <section id="projects">
+      <div class="section-title">// FEATURED PROJECTS</div>
+
+      <div class="projects-grid">
+        
+        <!-- Card 1 -->
+        <div class="project-card">
+          <div>
+            <div class="card-header">
+              <div class="card-icon"><i class="fa-solid fa-table-cells-large"></i></div>
+              <h2 class="card-title">CUDA GEMM Kernel</h2>
+            </div>
+            <p class="card-description">High performance matrix multiplication with shared memory tiling and memory coalescing.</p>
+          </div>
+          <div>
+            <div class="card-tags">
+              <span class="tag">CUDA</span>
+              <span class="tag">C++</span>
+              <span class="tag">Tiling</span>
+              <span class="tag">Shared Memory</span>
+            </div>
+            <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="project-card">
+          <div>
+            <div class="card-header">
+              <div class="card-icon"><i class="fa-solid fa-square-root-variable"></i></div>
+              <h2 class="card-title">CUDA Numerical Integration</h2>
+            </div>
+            <p class="card-description">Trapezoidal rule and Simpson's rule implemented with parallel reduction on the GPU.</p>
+          </div>
+          <div>
+            <div class="card-tags">
+              <span class="tag">CUDA</span>
+              <span class="tag">C++</span>
+              <span class="tag">Reduction</span>
+              <span class="tag">Math</span>
+            </div>
+            <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="project-card">
+          <div>
+            <div class="card-header">
+              <div class="card-icon"><i class="fa-solid fa-cube"></i></div>
+              <h2 class="card-title">GPU Kernel Library (WIP)</h2>
+            </div>
+            <p class="card-description">Building a library of high performance kernels for ML workloads.</p>
+          </div>
+          <div>
+            <div class="card-tags">
+              <span class="tag">CUDA</span>
+              <span class="tag">Attention</span>
+              <span class="tag">LayerNorm</span>
+              <span class="tag">Softmax</span>
+            </div>
+            <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="project-card">
+          <div>
+            <div class="card-header">
+              <div class="card-icon"><i class="fa-solid fa-diagram-project"></i></div>
+              <h2 class="card-title">Multi-GPU GEMM (WIP)</h2>
+            </div>
+            <p class="card-description">Distributed matrix multiplication across multiple GPUs and nodes.</p>
+          </div>
+          <div>
+            <div class="card-tags">
+              <span class="tag">CUDA</span>
+              <span class="tag">NCCL</span>
+              <span class="tag">MPI</span>
+              <span class="tag">Scaling</span>
+            </div>
+            <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="project-card">
+          <div>
+            <div class="card-header">
+              <div class="card-icon"><i class="fa-solid fa-chart-simple"></i></div>
+              <h2 class="card-title">Kernel Benchmark Suite</h2>
+            </div>
+            <p class="card-description">Automated benchmarking framework with Nsight profiling and analysis.</p>
+          </div>
+          <div>
+            <div class="card-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Nsight</span>
+              <span class="tag">Pandas</span>
+              <span class="tag">Matplotlib</span>
+            </div>
+            <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="project-card">
+          <div>
+            <div class="card-header">
+              <div class="card-icon"><i class="fa-solid fa-file-code"></i></div>
+              <h2 class="card-title">Architecture Notes</h2>
+            </div>
+            <p class="card-description">Deep dives into GPU architecture, memory hierarchy, and performance optimization.</p>
+          </div>
+          <div>
+            <div class="card-tags">
+              <span class="tag">Notes</span>
+              <span class="tag">Architecture</span>
+              <span class="tag">Optimization</span>
+            </div>
+            <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div>
+          <div class="brand">
+            <div class="avatar">CW</div>
+            <div class="brand-text">
+              <h1>Christopher Williams</h1>
+              <p>GPU Systems & ML Infrastructure</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-socials">
+          <a href="#" class="social-link"><i class="fa-brands fa-github"></i> GitHub</a>
+          <a href="#" class="social-link"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+          <a href="#" class="social-link"><i class="fa-regular fa-envelope"></i> Email</a>
+        </div>
+
+        <div class="footer-quote">
+          <div class="quote-text">"Performance is a feature."</div>
+          <div class="quote-author">– Unknown</div>
+        </div>
+      </div>
+    </footer>
   </div>
 
 </body>
