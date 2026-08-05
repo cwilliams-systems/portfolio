@@ -9,9 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
@@ -123,8 +120,13 @@
     }
 
     .github-icon {
-      font-size: 1.2rem;
       color: var(--text-main);
+      display: flex;
+      align-items: center;
+    }
+
+    .github-icon:hover {
+      color: var(--green-primary);
     }
 
     /* --- Hero Section --- */
@@ -314,7 +316,7 @@
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
       margin-bottom: 5rem;
     }
@@ -345,7 +347,6 @@
 
     .card-icon {
       color: var(--green-primary);
-      font-size: 1.8rem;
       background-color: rgba(56, 239, 125, 0.05);
       border: 1px solid rgba(56, 239, 125, 0.15);
       padding: 0.6rem;
@@ -400,6 +401,13 @@
 
     .card-link:hover {
       gap: 0.7rem;
+    }
+
+    .card-status {
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-style: italic;
     }
 
     /* --- Footer --- */
@@ -470,9 +478,6 @@
         margin-right: 0;
         margin-top: 0;
       }
-      .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
     }
 
     @media (max-width: 600px) {
@@ -504,9 +509,12 @@
       </div>
       <ul class="nav-links">
         <li><a href="#projects" class="active">PROJECTS</a></li>
-        <li><a href="#benchmarks">BENCHMARKS</a></li>
-        <li><a href="#contact">CONTACT</a></li>
-        <li><a href="https://github.com" target="_blank" class="github-icon"><i class="fa-brands fa-github"></i></a></li>
+        <li><a href="benchmarks.html">BENCHMARKS</a></li>
+        <li><a href="about.html">ABOUT ME</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li><a href="https://github.com/cwilliams-systems" target="_blank" class="github-icon" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.01-2.11-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.05 11.05 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.08.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .3.21.66.79.55A10.51 10.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+        </a></li>
       </ul>
     </nav>
 
@@ -537,7 +545,7 @@
 
         <div class="hero-buttons">
           <a href="#projects" class="btn btn-primary">&lt;/&gt; VIEW PROJECTS</a>
-          <a href="#benchmarks" class="btn btn-outline">VIEW BENCHMARKS</a>
+          <a href="benchmarks.html" class="btn btn-outline">VIEW BENCHMARKS</a>
         </div>
       </div>
 
@@ -549,7 +557,7 @@
 
     <div class="scroll-indicator">
       SCROLL
-      <i class="fa-solid fa-chevron-down"></i>
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
 
     <!-- Featured Projects Section -->
@@ -557,123 +565,82 @@
       <div class="section-title">// FEATURED PROJECTS</div>
 
       <div class="projects-grid">
-        
-        <!-- Card 1 -->
+
+        <!-- Card 1: cuda-ml-accelerator -->
         <div class="project-card">
           <div>
             <div class="card-header">
-              <div class="card-icon"><i class="fa-solid fa-table-cells-large"></i></div>
-              <h2 class="card-title">CUDA GEMM Kernel</h2>
+              <div class="card-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg></div>
+              <h2 class="card-title">cuda-ml-accelerator</h2>
             </div>
-            <p class="card-description">High performance matrix multiplication with shared memory tiling and memory coalescing.</p>
+            <p class="card-description">Tiled shared-memory GEMM kernel (TILE_WIDTH=32, float32) with Nsight-driven tile size optimization, pybind11 Python bindings, and full benchmark validation against CPU, naive CUDA, and PyTorch/cuBLAS across five matrix sizes.</p>
           </div>
           <div>
             <div class="card-tags">
               <span class="tag">CUDA</span>
-              <span class="tag">C++</span>
-              <span class="tag">Tiling</span>
-              <span class="tag">Shared Memory</span>
+              <span class="tag">Nsight Compute</span>
+              <span class="tag">pybind11</span>
+              <span class="tag">float32</span>
             </div>
-            <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
+            <a href="https://github.com/cwilliams-systems/cuda-ml-accelerator" target="_blank" class="card-link">VIEW PROJECT &rarr;</a>
           </div>
         </div>
 
-        <!-- Card 2 -->
+        <!-- Card 2: cuda-kernels -->
         <div class="project-card">
           <div>
             <div class="card-header">
-              <div class="card-icon"><i class="fa-solid fa-square-root-variable"></i></div>
+              <div class="card-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M12 16v6M4.9 4.9l4.2 4.2M14.9 14.9l4.2 4.2M2 12h6M16 12h6M4.9 19.1l4.2-4.2M14.9 9.1l4.2-4.2"/></svg></div>
+              <h2 class="card-title">cuda-kernels</h2>
+            </div>
+            <p class="card-description">The first CUDA project of the summer — vector addition, naive GEMM, and tiled GEMM (double precision), profiled with Nsight Compute. Found the FP64 pipeline bottleneck that directly motivated the float32 rebuild in cuda-ml-accelerator.</p>
+          </div>
+          <div>
+            <div class="card-tags">
+              <span class="tag">CUDA</span>
+              <span class="tag">Nsight Compute</span>
+              <span class="tag">double precision</span>
+            </div>
+            <a href="https://github.com/cwilliams-systems/cuda-kernels" target="_blank" class="card-link">VIEW PROJECT &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Card 3: CUDA Numerical Integration (planned, Sept 2026) -->
+        <div class="project-card">
+          <div>
+            <div class="card-header">
+              <div class="card-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h3l2 7 4-14 2 7h7"/></svg></div>
               <h2 class="card-title">CUDA Numerical Integration</h2>
             </div>
-            <p class="card-description">Trapezoidal rule and Simpson's rule implemented with parallel reduction on the GPU.</p>
+            <p class="card-description">Trapezoidal rule and Simpson's rule implemented with CUDA parallel reduction, built alongside Calc I coursework this fall.</p>
           </div>
           <div>
             <div class="card-tags">
               <span class="tag">CUDA</span>
-              <span class="tag">C++</span>
-              <span class="tag">Reduction</span>
-              <span class="tag">Math</span>
+              <span class="tag">Parallel Reduction</span>
+              <span class="tag">Numerical Methods</span>
             </div>
-            <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
+            <span class="card-status">Planned — September 2026</span>
           </div>
         </div>
 
-        <!-- Card 3 -->
+        <!-- Card 4: GPU Kernel Library (planned, Summer 2027) -->
         <div class="project-card">
           <div>
             <div class="card-header">
-              <div class="card-icon"><i class="fa-solid fa-cube"></i></div>
-              <h2 class="card-title">GPU Kernel Library (WIP)</h2>
+              <div class="card-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg></div>
+              <h2 class="card-title">GPU Kernel Library</h2>
             </div>
-            <p class="card-description">Building a library of high performance kernels for ML workloads.</p>
+            <p class="card-description">A library of high-performance ML kernels — Flash Attention variant, Softmax, LayerNorm, and multi-GPU GEMM — benchmarked against cuDNN.</p>
           </div>
           <div>
             <div class="card-tags">
               <span class="tag">CUDA</span>
               <span class="tag">Attention</span>
               <span class="tag">LayerNorm</span>
-              <span class="tag">Softmax</span>
+              <span class="tag">Multi-GPU</span>
             </div>
-            <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
-          </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="project-card">
-          <div>
-            <div class="card-header">
-              <div class="card-icon"><i class="fa-solid fa-diagram-project"></i></div>
-              <h2 class="card-title">Multi-GPU GEMM (WIP)</h2>
-            </div>
-            <p class="card-description">Distributed matrix multiplication across multiple GPUs and nodes.</p>
-          </div>
-          <div>
-            <div class="card-tags">
-              <span class="tag">CUDA</span>
-              <span class="tag">NCCL</span>
-              <span class="tag">MPI</span>
-              <span class="tag">Scaling</span>
-            </div>
-            <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
-          </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="project-card">
-          <div>
-            <div class="card-header">
-              <div class="card-icon"><i class="fa-solid fa-chart-simple"></i></div>
-              <h2 class="card-title">Kernel Benchmark Suite</h2>
-            </div>
-            <p class="card-description">Automated benchmarking framework with Nsight profiling and analysis.</p>
-          </div>
-          <div>
-            <div class="card-tags">
-              <span class="tag">Python</span>
-              <span class="tag">Nsight</span>
-              <span class="tag">Pandas</span>
-              <span class="tag">Matplotlib</span>
-            </div>
-            <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
-          </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="project-card">
-          <div>
-            <div class="card-header">
-              <div class="card-icon"><i class="fa-solid fa-file-code"></i></div>
-              <h2 class="card-title">Architecture Notes</h2>
-            </div>
-            <p class="card-description">Deep dives into GPU architecture, memory hierarchy, and performance optimization.</p>
-          </div>
-          <div>
-            <div class="card-tags">
-              <span class="tag">Notes</span>
-              <span class="tag">Architecture</span>
-              <span class="tag">Optimization</span>
-            </div>
-            <a href="#" class="card-link">VIEW PROJECT &rarr;</a>
+            <span class="card-status">Planned — Summer 2027</span>
           </div>
         </div>
 
@@ -694,14 +661,23 @@
         </div>
 
         <div class="footer-socials">
-          <a href="#" class="social-link"><i class="fa-brands fa-github"></i> GitHub</a>
-          <a href="#" class="social-link"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-          <a href="#" class="social-link"><i class="fa-regular fa-envelope"></i> Email</a>
+          <a href="https://github.com/cwilliams-systems" target="_blank" class="social-link">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.01-2.11-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.05 11.05 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.08.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .3.21.66.79.55A10.51 10.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/christopher-williams-717526319/" target="_blank" rel="noopener" class="social-link">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            LinkedIn
+          </a>
+          <a href="mailto:cw167396@gmail.com" class="social-link">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg>
+            Email
+          </a>
         </div>
 
         <div class="footer-quote">
           <div class="quote-text">"Performance is a feature."</div>
-          <div class="quote-author">– Unknown</div>
+          <div class="quote-author">– Jeff Atwood</div>
         </div>
       </div>
     </footer>
